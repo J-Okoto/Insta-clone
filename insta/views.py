@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Profile,Image,Comment
+from .models import Profile,Image,Comment,Like,Follow
 from django.contrib.auth.decorators import login_required
 from django.http  import Http404
 import datetime as dt
@@ -34,3 +34,11 @@ def single_user(request,id):
     except:
         raise Http404()
     return render(request,'all-grams/single.html',{"user":user})
+
+@login_required(login_url='/accounts/login/')
+def single_image(request,image_id): 
+    try:
+        image = Image.objects.get(id= image_id)
+    except:
+        raise Http404()
+    return render(request, 'all-grams/single_image.html',{"image":image})
