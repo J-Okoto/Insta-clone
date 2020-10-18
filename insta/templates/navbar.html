@@ -27,7 +27,7 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                 <!-- Adding a search form  -->
-                <form class="navbar-form" role="search" action="">
+                <form class="navbar-form" role="search" action="{% url 'search_results' %}">
 
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Search User" name="name">
@@ -52,10 +52,7 @@
                     <i class="fa fa-compass" style="font-size:36px;color:red" href=""></i>
                 </a>
                 
-                    <a href="/accounts/password/change">Change Password</a>
-                  
-                  
-                    <a href="/logout">Logout</a>
+                    
 
             </div>
 
