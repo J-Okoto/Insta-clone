@@ -31,24 +31,9 @@ body {
     float:right;
 }
 
-#demopic {
-    background-color: #131413;
-    border-radius: 3%;
-    border: solid 1px gray;
-    z-index:2;
-    height:80%;
-    margin-top: 10%;
-    margin-left:53%;
-    width:43.5%;
-}
 
-#colored-nav {
-    background-color:rgba(43, 42, 42, 0.507);
-    border-bottom:solid 2px #131413;
-    margin:0;
-    padding-top: 0%;
-    height:70px;
-}
+
+
 
 #main {
     padding-top:3%;
