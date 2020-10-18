@@ -134,3 +134,9 @@ def update_profile(request):
 
 
     return render(request,'profile/update_profile.html',{"title":title,"current_user":current_user,"form":form})
+
+
+@login_required(login_url='/accounts/login/')
+def view_profiles(request):
+    all_profiles = Profile.objects.all()
+    return render(request,'profile/all.html',{"all_profiles":all_profiles}) 
