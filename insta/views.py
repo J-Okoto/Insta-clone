@@ -64,7 +64,7 @@ def post(request):
     else:
         form = ImageForm() 
     return render(request, 'all-grams/post.html',{"form" : form}) 
-    
+
 @login_required(login_url='/accounts/login/')
 def timeline(request):
     date = dt.date.today()
@@ -88,3 +88,49 @@ def timeline(request):
     except:
         raise Http404
     return render(request, 'profile/profile.html') 
+
+@login_required(login_url='/accounts/login/')
+def profile(request):
+    title = 'Profile'
+    current_user = request.user
+    try:
+        profile = Profile.objects.get(user_id = current_user)
+        following = Follow.objects.filter(follower = current_user)
+        followers = Follow.objects.filter(user = profile) 
+    except:
+        profile = Profile.objects.get(username = 'default_user')
+        following = Follow.objects.filter(follower = current_user)
+        followers = Follow.objects.filter(user = profile)
+
+    return render(request, 'profile/profile.html',{"profile":profile,"current_user":current_user,"following":following,"followers":followers})
+
+@login_required(login_url='/accounts/login/')
+def update_profile(request):
+    current_user = request.user 
+    title = 'Update Profile'
+    try:
+        requested_profile = Profile.objects.get(user_id = current_user.id)
+        if request.method == 'POST':
+            form = ProfileUpdateForm(request.POST,request.FILES)
+
+            if form.is_valid():
+                requested_profile.profile_photo = form.cleaned_data['profile_photo']
+                requested_profile.bio = form.cleaned_data['bio']
+                requested_profile.username = form.cleaned_data['username']
+                requested_profile.save_profile()
+                return redirect( profile )
+        else:
+            form = ProfileUpdateForm()
+    except:
+        if request.method == 'POST':
+            form = ProfileUpdateForm(request.POST,request.FILES)
+
+            if form.is_valid():
+                new_profile = Profile(profile_photo= form.cleaned_data['profile_photo'],bio = form.cleaned_data['bio'],username = form.cleaned_data['username'],user = current_user)
+                new_profile.save_profile()
+                return redirect( profile )
+        else:
+            form = ProfileUpdateForm()
+
+
+    return render(request,'profile/update_profile.html',{"title":title,"current_user":current_user,"form":form})
