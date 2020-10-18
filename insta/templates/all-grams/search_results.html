@@ -19,10 +19,10 @@
             {% if found_users %} {% for found_user in found_users %}
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
 
-                <a href="">
+                <a href="{% url 'single_user' found_user.id %}">
                     <img src="{{found_user.profile_photo.url}}" class="img-responsive" alt='Image'>
                 </a>
-                <a href="">
+                <a href="{% url 'single_user' found_user.id %}">
                     <h5>{{found_user.username}}</h5>
                 </a>
 
