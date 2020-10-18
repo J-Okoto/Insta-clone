@@ -6,10 +6,12 @@ from . import views
 
 
 urlpatterns=[
-    url('^$',views.welcome,name = 'welcome'),
+    # url('^$',views.welcome,name = 'welcome'),
+    url('^$',views.timeline,name = 'timeline'),
     url(r'^search/', views.search_results, name='search_results'),
     url(r'^user/(\d+)', views.single_user, name='single_user'),
     url(r'^image/(\d+)', views.single_image, name='single_image'), 
+    url(r'^post/', views.post, name='post'),
     url(r'^profile/', views.profile, name='profile'),
 ]
 if settings.DEBUG:
