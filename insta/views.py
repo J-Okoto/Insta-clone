@@ -127,3 +127,28 @@ def update_profile(request):
 def view_profiles(request):
     all_profiles = Profile.objects.all()
     return render(request,'profile/all.html',{"all_profiles":all_profiles}) 
+
+@login_required(login_url='/accounts/login/')
+def comment(request, image_id):
+    comments = Comment.objects.filter(image_id=image_id)
+    current_image = Image.objects.get(id=image_id)
+    current_user = request.user
+
+    if request.method == 'POST':
+
+        form = CommentForm(request.POST)
+        logger_in = request.user
+        
+
+        if form.is_valid():
+            comment = form.save(commit = False)
+            comment.user_id= current_user
+            comment.image_id = current_image
+            current_image.comments_number+=1
+            current_image.save_image()
+            comment.save()
+
+            return redirect(timeline)
+    else:
+        form = CommentForm()
+    return render(request,'all-grams/comment.html',{"form":form,"comments":comments})  

@@ -24,7 +24,7 @@
                     <a href="">
                         <span class="glyphicon glyphicon-heart-empty" style="font-size:30px;" id='like_button'></span>&nbsp;&nbsp;&nbsp;
                     </a>
-                    <a href="">
+                    <a href="{% url 'comment' image.id %}">
                         <span class="glyphicon glyphicon-edit" style="font-size:30px;"></span>
                     </a>
                     <span class="glyphicon glyphicon-bookmark" style="font-size:30px;float:right;"></span>
@@ -32,12 +32,12 @@
                     <h5 style="font-weight: bolder;">{{image.likes}} likes</h5>
                     <div style="overflow: hidden; height:50px;">
                         <h5>
-                            {{image.comments_number}}&nbsp; comments<a href=""> View </a>
+                            {{image.comments_number}}&nbsp; comments<a href="{% url 'comment' image.id %}"> View </a>
                         </h5>
                     </div>
                     <h5>{{image.pub_date | timesince}} ago</h5>
                     <hr>
-                    <a href="">Add a comment...</a>
+                    <a href="{% url 'comment' image.id %}">Add a comment...</a>
                     <a href="">
                         <span class="glyphicon glyphicon-option-horizontal" style="float:right; font-size:20px;"></span>
                     </a>
