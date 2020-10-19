@@ -152,3 +152,46 @@ def comment(request, image_id):
     else:
         form = CommentForm()
     return render(request,'all-grams/comment.html',{"form":form,"comments":comments})  
+
+@login_required(login_url='/accounts/login/')
+def like(request,image_id):
+    requested_image = Image.objects.get(id = image_id)
+    current_user = request.user
+    if_voted = Like.objects.filter(image = requested_image,user = current_user).count()
+    unlike_parameter = Like.objects.filter(image = requested_image,user = current_user)
+    
+    if if_voted==0:
+        requested_image.likes +=1
+        requested_image.save_image()
+        like = Like(user = current_user, image = requested_image )
+        like.save_like()
+        return redirect(timeline)
+
+    else:
+        requested_image.likes -=1
+        requested_image.save_image()
+        for single_unlike in unlike_parameter:
+            single_unlike.unlike()
+        return redirect(timeline)
+    
+    return render(request,'all-grams/timeline.html')
+
+@login_required(login_url='/accounts/login/')
+def more(request,image_id):
+    image = Image.objects.get(id = image_id)
+
+    current_user = request.user
+    update_image = Image.objects.get(id= image_id)
+
+    if request.method == 'POST':
+        form = UpdateImageCaption(request.POST)
+        if form.is_valid():
+            new_caption = form.cleaned_data['image_caption']
+            update_image.image_caption = new_caption
+            update_image.save_image() 
+
+            return redirect( more ,image_id)
+    else:
+        form = UpdateImageCaption()
+
+    return render(request,'all-grams/more.html',{"image":image, "form":form}) 

@@ -21,11 +21,10 @@
                 <a href=""><img src={{image.image.url}} id="timeline_image" style="width:100%;">
                 </a>
                 <div style="margin:10px;">
-                    <a href="">
+                    <a href="{% url 'like' image.id %}">
                         <span class="glyphicon glyphicon-heart-empty" style="font-size:30px;" id='like_button'></span>&nbsp;&nbsp;&nbsp;
                     </a>
-                    <a href="{% url 'comment' image.id %}">
-                        <span class="glyphicon glyphicon-edit" style="font-size:30px;"></span>
+                    
                     </a>
                     <span class="glyphicon glyphicon-bookmark" style="font-size:30px;float:right;"></span>
                     <hr>
@@ -38,7 +37,7 @@
                     <h5>{{image.pub_date | timesince}} ago</h5>
                     <hr>
                     <a href="{% url 'comment' image.id %}">Add a comment...</a>
-                    <a href="">
+                    <a href="{% url 'more' image.id %}">
                         <span class="glyphicon glyphicon-option-horizontal" style="float:right; font-size:20px;"></span>
                     </a>
                 </div>
