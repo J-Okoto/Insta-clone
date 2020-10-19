@@ -1,20 +1,16 @@
+import os
 from django.shortcuts import render,redirect
 from .models import Profile,Image,Comment,Like,Follow
 from django.contrib.auth.decorators import login_required
 from django.http  import Http404
 import datetime as dt
 from . forms import ImageForm, CommentForm, ProfileUpdateForm,UpdateImageCaption 
+from django.contrib.auth.models import User
 
 # Create your views here.
 def welcome(request):
     return render(request, 'welcome.html')
     
-
-@login_required(login_url='/accounts/login/')
-def profile(request):
-    title = 'Profile'
-    
-    return render(request, 'profile/profile.html')
 
 @login_required(login_url='/accounts/login/')
 def search_results(request):
@@ -59,35 +55,26 @@ def post(request):
             image.user_key = current_user
             image.likes +=0
             image.save() 
-
+        return redirect( timeline)
             
     else:
         form = ImageForm() 
     return render(request, 'all-grams/post.html',{"form" : form}) 
 
 @login_required(login_url='/accounts/login/')
+
 def timeline(request):
     date = dt.date.today()
     current_user = request.user 
-    followed_people= []
+    
     images1 =[]
-    following  = Follow.objects.filter(follower = current_user)
-    is_following = Follow.objects.filter(follower = current_user).count()
-    try:
-        if is_following != 0:
-            for following_object in following:
-                image_set = Profile.objects.filter(id = following_object.user.id)
-                for item in image_set:
-                    followed_people.append(item)
-            for followed_profile in followed_people:
-                post = Image.objects.filter(user_key = followed_profile.user)
-                for item in post:
-                    images1.append(item)
-                    images= list(reversed(images1))                                                                                                                                                                                                                                                                                                                                                                  
-            return render(request, 'all-grams/timeline.html',{"date":date,"timeline_images":images})
-    except:
-        raise Http404
-    return render(request, 'profile/profile.html') 
+    
+
+    post = Image.objects.all()
+    for item in post:
+            images1.append(item)
+            images= list(reversed(images1))                                                                                                                                                                                                                                                                                                                                                                  
+    return render(request, 'all-grams/timeline.html',{"date":date,"timeline_images":images})
 
 @login_required(login_url='/accounts/login/')
 def profile(request):

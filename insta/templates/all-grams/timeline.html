@@ -18,13 +18,13 @@
                 <div>
                     <h5 style="font-weight:bolder;font-family: 'Heebo', sans-serif;">&nbsp;&nbsp;&nbsp;{{image.user_key}}</h5>
                 </div>
-                <a href="{% url 'more' image.id %}"><img src={{image.image.url}} id="timeline_image" style="width:100%;">
+                <a href=""><img src={{image.image.url}} id="timeline_image" style="width:100%;">
                 </a>
                 <div style="margin:10px;">
-                    <a href="{% url 'like' image.id %}">
+                    <a href="">
                         <span class="glyphicon glyphicon-heart-empty" style="font-size:30px;" id='like_button'></span>&nbsp;&nbsp;&nbsp;
                     </a>
-                    <a href="{% url 'comment' image.id %}">
+                    <a href="">
                         <span class="glyphicon glyphicon-edit" style="font-size:30px;"></span>
                     </a>
                     <span class="glyphicon glyphicon-bookmark" style="font-size:30px;float:right;"></span>
@@ -32,13 +32,13 @@
                     <h5 style="font-weight: bolder;">{{image.likes}} likes</h5>
                     <div style="overflow: hidden; height:50px;">
                         <h5>
-                            {{image.comments_number}}&nbsp; comments<a href="{% url 'comment' image.id %}"> View </a>
+                            {{image.comments_number}}&nbsp; comments<a href=""> View </a>
                         </h5>
                     </div>
                     <h5>{{image.pub_date | timesince}} ago</h5>
                     <hr>
-                    <a href="{% url 'comment' image.id %}">Add a comment...</a>
-                    <a href="{% url 'more' image.id %}">
+                    <a href="">Add a comment...</a>
+                    <a href="">
                         <span class="glyphicon glyphicon-option-horizontal" style="float:right; font-size:20px;"></span>
                     </a>
                 </div>
