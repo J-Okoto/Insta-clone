@@ -191,3 +191,19 @@ def more(request,image_id):
         form = UpdateImageCaption()
 
     return render(request,'all-grams/more.html',{"image":image, "form":form}) 
+
+
+@login_required(login_url='/accounts/login/')
+def follow(request,profile_id):
+    current_user = request.user
+    requested_profile = Profile.objects.get(id = profile_id)
+    is_following = Follow.objects.filter(follower = current_user,user = requested_profile).count()
+    follow_object = Follow.objects.filter(follower = current_user,user = requested_profile)
+
+    if is_following == 0:
+        follower = Follow(follower = current_user,user = requested_profile)
+        follower.save()  
+        return redirect(view_profiles)
+    else:
+        follow_object.delete()
+        return redirect(view_profiles)
