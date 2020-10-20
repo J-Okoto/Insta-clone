@@ -78,12 +78,22 @@ def timeline(request):
 
 @login_required(login_url='/accounts/login/')
 def profile(request):
-    title = 'Profile'
     current_user = request.user
+    title = 'Profile'
+    try:
+        profile = Profile.objects.get(user_id = current_user)
+        following = Follow.objects.filter(follower = current_user)
+        followers = Follow.objects.filter(user = profile) 
+    except:
+        profile = Profile.objects.get(username = 'default_user')
+        following = Follow.objects.filter(follower = current_user)
+        followers = Follow.objects.filter(user = profile)
+
+    return render(request, 'profile/profile.html',{"profile":profile,"current_user":current_user,"following":following,"followers":followers})
+
     
-        
+  
     
-      
 
     return render(request, 'profile/profile.html',{"profile":profile,"current_user":current_user})
 
