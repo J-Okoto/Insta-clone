@@ -18,10 +18,13 @@ from django.contrib import admin
 from django.conf.urls import url,include
 
 from django.contrib.auth import views 
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url('admin/', admin.site.urls),
-    url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'',include('insta.urls')),
-    url(r'^logout/$', views.logout, {"next_page": '/'}), 
+    url(r'^accounts/', include('registration.backends.simple.urls')),
+    url(r'^login/$', auth_views.login, name='login'),
+    url(r'^logout/$', views.logout, {"next_page": '/'}),
 ]
+

@@ -2,7 +2,7 @@ import os
 from django.shortcuts import render,redirect
 from .models import Profile,Image,Comment,Like,Follow
 from django.contrib.auth.decorators import login_required
-from django.http  import Http404
+from django.http  import HttpResponse,Http404,HttpResponseRedirect
 import datetime as dt
 from . forms import ImageForm, CommentForm, ProfileUpdateForm,UpdateImageCaption 
 from django.contrib.auth.models import User
@@ -80,16 +80,12 @@ def timeline(request):
 def profile(request):
     title = 'Profile'
     current_user = request.user
-    try:
-        profile = Profile.objects.get(user_id = current_user)
-        following = Follow.objects.filter(follower = current_user)
-        followers = Follow.objects.filter(user = profile) 
-    except:
-        profile = Profile.objects.get(username = 'default_user')
-        following = Follow.objects.filter(follower = current_user)
-        followers = Follow.objects.filter(user = profile)
+    
+        
+    
+      
 
-    return render(request, 'profile/profile.html',{"profile":profile,"current_user":current_user,"following":following,"followers":followers})
+    return render(request, 'profile/profile.html',{"profile":profile,"current_user":current_user})
 
 @login_required(login_url='/accounts/login/')
 def update_profile(request):
