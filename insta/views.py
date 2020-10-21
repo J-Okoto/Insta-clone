@@ -72,8 +72,9 @@ def timeline(request):
 
     post = Image.objects.all()
     for item in post:
-            images1.append(item)
-            images= list(reversed(images1))                                                                                                                                                                                                                                                                                                                                                                  
+            
+            images= list(reversed(images1))
+            images1.append(item)                                                                                                                                                                                                                                                                                                                                                                
     return render(request, 'all-grams/timeline.html',{"date":date,"timeline_images":images})
 
 @login_required(login_url='/accounts/login/')
