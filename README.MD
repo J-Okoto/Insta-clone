@@ -40,7 +40,9 @@ pip install -r requirements.txt
 
 ```
 $ psql ; CREATE DATABASE instagram ;
+
 ```
+
 ### Installing
 
 Ensure that the MODE in the .env is set to development ('dev'), which will automatically set debug to true.
