@@ -52,6 +52,7 @@ Now run the following command
 ```
 python3.6 manage.py runserver
 
+```
 
 ## Known Bugs
 
