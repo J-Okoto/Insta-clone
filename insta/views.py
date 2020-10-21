@@ -37,6 +37,7 @@ def single_image(request,image_id):
     try:
         image = Image.objects.get(id= image_id)
     except:
+        
         raise Http404()
     return render(request, 'all-grams/single_image.html',{"image":image})
 
