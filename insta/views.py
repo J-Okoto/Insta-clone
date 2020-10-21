@@ -67,7 +67,7 @@ def timeline(request):
     date = dt.date.today()
     current_user = request.user 
     images1 =[]
-    
+    images= list(reversed(images1))
 
     post = Image.objects.all()
     for item in post:
